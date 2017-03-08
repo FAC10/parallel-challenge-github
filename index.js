@@ -1,24 +1,24 @@
 var githubHandles = [
   "Akin909",
   "alexis-l8",
-  "antoniotrkdz",
-  "bo-bok",
-  "ConchobarMacNessa",
-  "finnhodgkin",
-  "joeylouise",
-  "lucyrose93",
-  "majakudlicka",
-  "oliverjam",
-  "pbywater",
-  "PiotrBerebecki",
-  "Samatar26",
-  "smarthutza",
-  "yvonne-liu",
-  "ZooeyMiller"
+  // "antoniotrkdz",
+  // "bo-bok",
+  // "ConchobarMacNessa",
+  // "finnhodgkin",
+  // "joeylouise",
+  // "lucyrose93",
+  // "majakudlicka",
+  // "oliverjam",
+  // "pbywater",
+  // "PiotrBerebecki",
+  // "Samatar26",
+  // "smarthutza",
+  // "yvonne-liu",
+  // "ZooeyMiller"
 ];
 
 // TO DO: put your github access token here
-var access_token = "";
+var access_token = "a01ca42209bcbcbc079a62b8c149873faaedbe3c";
 
 function createTableRow (user) {
   var tr = document.createElement("tr");
@@ -50,7 +50,7 @@ function request(url, cb) {
 
 // callback: returns an object containing username, full name and number of people following
 function getUser(username, cb) {
-  var url = "https://api.github.com/users/" + username //+ "?access_token=" + access_token;
+  var url = "https://api.github.com/users/" + username + "?access_token=" + access_token;
   request(url, function(error, data) {
     if (error) {
       console.log(error);
@@ -69,7 +69,20 @@ function getUser(username, cb) {
 // this function should only return something when all the data has been retrieved from the API!
 
 function getAllUsers(arr, cb) {
-  // your function here!
+  // githubHandles.forEach(function (a) {
+  //  console.log(getUser(a, cb),1)
+  // })
+  var array = [];
+  var count = 0;
+  arr.forEach(function(element){
+    (getUser(element, function(e){
+      array.push(e);
+      count++;
+      if(count===arr.length){
+        return cb(array);
+      }
+    }));
+  });
 }
 
 // TO DO: bonus - make sure the users are sorted in order of the number people they're following
